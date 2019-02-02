@@ -8,4 +8,4 @@ V1 of the code uses a browser extension called "tampermonkey"
   (which can be downloaded from https://tampermonkey.net/)
   in order to run and inject the script into the browser console on every reload.
   
-The author is and will not be responsible for the misuse of the script.
+Note: The author is and will not be responsible for the misuse of the script.
