@@ -1,0 +1,43 @@
+// ==UserScript==
+// @name         WW BOTT
+// @namespace    http://tampermonkey.net/
+// @version      0.1
+// @description  try to take over the world!
+// @author       You
+// @include      https://webwork.elearning.ubc.ca/*
+// @grant        none
+// ==/UserScript==
+
+(function() {
+    'use strict';
+
+/*************************** CUSTOMIZABLE BOT CODE ***************************/
+
+    var solve_mode = "single";     // **is there more than one question to solve?
+    // solve_modes: "single" - individual question solver
+    //              "multiple" - multiple question solver
+    //              "uniform" - solve multiple questions at the same time!
+    var increment_mode = "simple"; // **do you want to activate advanced incrementing?
+    // increment_modes: "simple" - simple incrementing based on number
+    //                  "advanced" - increment based on percentage error
+
+/************************* END OF CUSTOMIZABLE CODE ***************************/
+
+
+
+/****************************** EXTRA FUNCTIONS *******************************/
+
+
+// SINGLE QUESTION SOLVER - ADVANCED INCREMENT
+else if(solve_mode == "single" && increment_mode == "advanced") {
+  // check if question is solved
+  if(checkTrue == i_checkTrue)  {
+    sp_increment = currentVal * percentage_error
+    submitVal = currentVal + sp_increment;
+    currentVal = submitVal;
+    submit_Button.click();
+  }
+  // if question has been solved
+  else {
+    alert("Question number " + question_number + " is solved!");
+  }

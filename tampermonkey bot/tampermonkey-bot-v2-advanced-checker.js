@@ -1,8 +1,8 @@
 // ==UserScript==
-// @name         WW ADVANCED BOT
+// @name         WW ADVANCED BOT CHECKER
 // @namespace    http://tampermonkey.net/
 // @version      0.1
-// @description  Simple bot for testing values by increments
+// @description  Simple bot for testing values by increments (uses check submission)
 // @author       You
 // @include      https://webwork.elearning.ubc.ca/*
 // @grant        none
@@ -16,7 +16,7 @@
     var webwork_mode = "single"; // **is there more than one webwork problem to solve?
     // webwork_modes: "single" - solve only one webwork question
     //                "multiple" - continue until all webwork questions solved
-    var solve_mode = "single"; // **is there more than one question to solve?
+    var solve_mode = "uniform"; // **is there more than one question to solve?
     // solve_modes: "single" - individual question solver
     //              "multiple" - multiple question solver
     //              "uniform" - solve multiple questions at the same time!
@@ -57,8 +57,8 @@
     }
 
     // input variables
-    var submitVal = 0;
-    var currentVal = 0;
+    var submitVal = 0.0;
+    var currentVal = 0.0;
     var counter = 0;
 
     // check webwork page
@@ -80,7 +80,7 @@
     // case: page is in preview mode ()
     else if (output_body.getElementsByClassName("ResultsWithError")[0] && output_body.getElementsByClassName("ResultsWithError")[0].textContent.indexOf("PREVIEW ONLY") !== -1) {
       alert("Exiting preview mode");
-      submit_Button.click();
+      check_Button.click();
     }
     else {
 
@@ -99,19 +99,19 @@
             input_list[(question_number)].setAttribute("checked","");
           }
           else input_list[(question_number - 1)].setAttribute("checked","");
-          submit_Button.click();
+          check_Button.click();
         }
         // case: previous input exists
         else if (currentVal < 0.0 | currentVal >= 0.0) {
           submitVal = currentVal + increment;
           input_list[(question_number - 1) * 2].value = submitVal;
-          submit_Button.click();
+          check_Button.click();
         }
         // case: answer is undefined/null
         else {
           submitVal = 0.0;
           input_list[(question_number - 1) * 2].value = submitVal;
-          submit_Button.click();
+          check_Button.click();
         }
       }
       // case: question correct
@@ -152,7 +152,7 @@
         else alert("Question has been solved!");
       }
       // if not all correct yet
-      else submit_Button.click(); // submit all filled answers
+      else check_Button.click(); // submit all filled answers
     }
   }
 
