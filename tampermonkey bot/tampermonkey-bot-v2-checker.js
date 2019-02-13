@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name         WW ADVANCED BOT CHECKER
+// @name         WW BOT CHECKER
 // @namespace    http://tampermonkey.net/
 // @version      0.1
 // @description  Simple bot for testing values by increments (uses check submission)
@@ -82,7 +82,7 @@
       alert("Exiting preview mode");
       check_Button.click();
     }
-    else {
+    else if (answers_list.length) {
 
     // check what solving mode it is
     // case: single solver
@@ -117,10 +117,12 @@
       // case: question correct
       else alert("Question is solved with value " + currentVal);
     }
+
     // case: multiple solver
     else if (solve_mode == "multiple") {
       alert("multiple solver is really stupid actually");
     }
+
     // case: uniform solver
     else if (solve_mode == "uniform") {
       let check_flag = 0;
@@ -155,5 +157,7 @@
       else check_Button.click(); // submit all filled answers
     }
   }
-
+  else {
+      check_Button.click();
+  }
 })();

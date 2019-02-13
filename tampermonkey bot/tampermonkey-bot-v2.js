@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name         WW ADVANCED BOT
+// @name         WW ATTACK BOT
 // @namespace    http://tampermonkey.net/
 // @version      0.1
 // @description  Simple bot for testing values by increments
@@ -16,7 +16,7 @@
     var webwork_mode = "single"; // **is there more than one webwork problem to solve?
     // webwork_modes: "single" - solve only one webwork question
     //                "multiple" - continue until all webwork questions solved
-    var solve_mode = "single"; // **is there more than one question to solve?
+    var solve_mode = "uniform"; // **is there more than one question to solve?
     // solve_modes: "single" - individual question solver
     //              "multiple" - multiple question solver
     //              "uniform" - solve multiple questions at the same time!
@@ -82,7 +82,7 @@
       alert("Exiting preview mode");
       submit_Button.click();
     }
-    else {
+    else if (answers_list.length) {
 
     // check what solving mode it is
     // case: single solver
@@ -117,10 +117,12 @@
       // case: question correct
       else alert("Question is solved with value " + currentVal);
     }
+
     // case: multiple solver
     else if (solve_mode == "multiple") {
       alert("multiple solver is really stupid actually");
     }
+    
     // case: uniform solver
     else if (solve_mode == "uniform") {
       let check_flag = 0;
@@ -155,5 +157,7 @@
       else submit_Button.click(); // submit all filled answers
     }
   }
-
+  else {
+      submit_Button.click();
+  }
 })();
