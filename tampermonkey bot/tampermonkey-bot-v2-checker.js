@@ -27,6 +27,7 @@
       var question_number = 1; // **which individual question to solve?
       var ignore_100 = 1; // **decide whether to ignore 100%
       var ignore_attempts = 1; // **decide whether to ignore unlimited attempts
+      var end_ignore = 1; //**decide whether to ignore the end value
 
   /************************** ADVANCED INCREMENT CODE ***************************/
       var increment_mode = "simple"
@@ -135,7 +136,42 @@
 
       // case: sequential solver
       else if (solve_mode == "sequential") {
-        alert("sequential solver is really stupid actually");
+        // alert("Sequential solver is actually very ineffective. Use at your own risk.");
+        // for loop to check and fill all questions
+        for (counter = question_number; counter <= answers_list.length / 3; counter++ ) {
+          currentVal = parseFloat(eval(input_list[(counter - 1) * 2].value),10)
+      // check what condition answers are in
+          // case: answer is still incorrect
+          if (answers_list[counter * 3 - 1].classList.contains("ResultsWithError") == true) {
+      // check if answer input is currently null/undefined
+            // case: prevous input exists (and is lower than the end value)
+            if ((currentVal < 0.0 | currentVal >= 0.0) && currentVal <= end) {
+              submitVal = currentVal + increment;
+              if (submitVal > end) {
+                // alert and exit if reached end value
+                alert("End of test values reached! Exiting...");
+                back_Button.click();
+                break;
+              }
+              else {
+                input_list[(counter - 1) * 2].value = submitVal;
+                check_Button.click();
+                break;
+              }
+            }
+            // case: answer is undefined/null/more than end value
+            else {
+              submitVal = start;
+              input_list[(counter - 1) * 2].value = submitVal;
+              check_Button.click();
+              break;
+            }
+          }
+          else {}
+          // do nothing if case is correct (let counter increment)
+        }
+        // if all questions correct
+        if (output_table.getElementsByClassName("ResultsWithError").length == 0) alert("All questions solved!");
       }
 
       // case: multiple solver
@@ -143,19 +179,19 @@
         let check_flag = 0;
         let unsolve_flag = 0;
         // for loop to fill in all questions
-        for(counter = 1; counter <= parseInt(answers_list.length) / 3; counter++) {
+        for (counter = 1; counter <= parseInt(answers_list.length) / 3; counter++) {
           currentVal = parseFloat(eval(input_list[(counter - 1) * 2].value),10)
       // check if answer is correct
           // case: incorrect answer
           if (answers_list[counter * 3 - 1].classList.contains("ResultsWithError") == true) {
-      // check if answer input is currently null/undefined=
+      // check if answer input is currently null/undefined
             // case: previous input exists (and is lower than the end value)
             if ((currentVal < 0.0 | currentVal >= 0.0) && currentVal <= end) {
               submitVal = currentVal + increment;
               if (submitVal > end) unsolve_flag++;
               else input_list[(counter - 1) * 2].value = submitVal;
             }
-            // case: answer is undefined/null
+            // case: answer is undefined/null/over end value
             else {
               submitVal = start;
               input_list[(counter - 1) * 2].value = submitVal;
