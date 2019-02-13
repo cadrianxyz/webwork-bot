@@ -21,12 +21,22 @@
     //              "multiple" - multiple question solver
     //              "uniform" - solve multiple questions at the same time!
 
-    var start = 0; // **starting value
-    var end = 500; // **ending value
+    var start = 0.0; // **starting value
+    var end = 500.0; // **ending value
     var increment = 1; // **value to increment by
     var question_number = 1; // **which individual question to solve?
     var ignore_100 = 1; // **decide whether to ignore 100%
     var ignore_attempts = 1; // **decide whether to ignore unlimited attempts
+
+/************************** ADVANCED INCREMENT CODE ***************************/
+    var increment_mode = "simple"
+    // increment_modes: "simple" - normal incrementation
+    //                  "advanced" - use incrementation based on webwork percentage
+    var adv_start = 1;
+    var adv_end = 1000;
+    var adv_increment = 0;
+    var adv_webwork_error = 0.02; // 2% error on webwork
+    var dp = 8; // maximum decimal points to round to
 
 /************************** END OF CUSTOMIZABLE CODE **************************/
 
@@ -101,15 +111,25 @@
           else input_list[(question_number - 1)].setAttribute("checked","");
           check_Button.click();
         }
-        // case: previous input exists
-        else if (currentVal < 0.0 | currentVal >= 0.0) {
+        // case: previous input exists (and is smaller than the end value)
+        else if (currentVal < 0.0 | currentVal >= 0.0 && currentVal < end) {
           submitVal = currentVal + increment;
+          if (submitVal >= end) {
+            if(confirm("Reached end of test values. Continue testing?")) {
+              end *= 2;
+              txt = "End point doubled!";
+            }
+            else {
+              txt = "Done testing!";
+              back_Button.click();
+            }
+          }
           input_list[(question_number - 1) * 2].value = submitVal;
           check_Button.click();
         }
         // case: answer is undefined/null
         else {
-          submitVal = 0.0;
+          submitVal = start;
           input_list[(question_number - 1) * 2].value = submitVal;
           check_Button.click();
         }
@@ -132,15 +152,23 @@
     // check if answer is correct
         // case: incorrect answer
         if (answers_list[counter * 3 - 1].classList.contains("ResultsWithError") == true) {
-    // check if answer input is currently null/undefined
-          // case: previous input exists
-          if (currentVal < 0.0 | currentVal >= 0.0) {
+    // check if answer input is currently null/undefined=
+          // case: previous input exists (and is lower than the end value)
+          if (currentVal < 0.0 | currentVal >= 0.0 && currentVal < end) {
             submitVal = currentVal + increment;
-            input_list[(counter - 1) * 2].value = submitVal;
+            if (submitVal >= end) {
+              if(confirm("Reached end of test values. Continue testing?")) {
+                end *= 2;
+                txt = "End point doubled!";
+                input_list[(counter - 1) * 2].value = submitVal;
+              }
+              else {
+                txt = "Done testing!";
+              }
           }
           // case: answer is undefined/null
           else {
-            submitVal = 0.0;
+            submitVal = start;
             input_list[(counter - 1) * 2].value = submitVal;
           }
         }
