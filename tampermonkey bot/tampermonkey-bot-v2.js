@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name         WW BOT CHECKER
+// @name         WW ADVANCED BOT
 // @namespace    http://tampermonkey.net/
 // @version      0.1
 // @description  Simple bot for testing values by increments (uses check submission)
