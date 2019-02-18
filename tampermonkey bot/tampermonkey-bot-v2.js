@@ -2,7 +2,7 @@
 // @name         WW ADVANCED BOT
 // @namespace    http://tampermonkey.net/
 // @version      0.1
-// @description  Simple bot for testing values by increments (uses check submission)
+// @description  Simple bot for testing values by increments (uses submit submission)
 // @author       You
 // @include      https://webwork.elearning.ubc.ca/*
 // @grant        none
@@ -21,8 +21,8 @@
     //              "sequential" - sequential question solver
     //              "multiple" - solve multiple questions at the same time!
 
-    var start = 0.0; // **starting value
-    var end = 500.0; // **ending value
+    var start = -500; // **starting value
+    var end = 0; // **ending value
     var increment = 1; // **value to increment by
     var question_number = 1; // **which individual question to solve?
     var ignore_100 = 1; // **decide whether to ignore 100%
@@ -33,8 +33,8 @@
     var increment_mode = "advanced"
     // increment_modes: "simple" - normal incrementation
     //                  "advanced" - use incrementation based on webwork percentage
-    var adv_start = 1;
-    var adv_end = 1000;
+    var adv_start = 0;
+    var adv_end = 1;
     var adv_increment = 0;
     var adv_webwork_error = 0.02; // 2% error on webwork
     var dp = 8; // maximum decimal points to round to
@@ -72,6 +72,8 @@
     var submitVal = 0.0;
     var currentVal = 0.0;
     var counter = 0;
+    var counter2 = 0;
+    var counter3 = 0;
     var adv_initial = adv_webwork_error;
 
     // check webwork page
@@ -97,8 +99,8 @@
     }
     else if (answers_list.length) {
 
-/******************************* MAIN SOLVER STARTS ****************************/
-/****************************** ADVANCED INCREMENTS ****************************/
+        /******************************* MAIN SOLVER STARTS ****************************/
+        /****************************** ADVANCED INCREMENTS ****************************/
 
         if (solve_mode == "single" && increment_mode == "advanced") {
             currentVal = (parseFloat(eval(input_list[(question_number - 1) * 2].value),10)).toFixed(dp);
@@ -114,20 +116,24 @@
                 else if ((currentVal < 0.0 | currentVal >= 0.0) && currentVal <= adv_end && currentVal >= adv_start) {
                     adv_increment = currentVal * adv_webwork_error;
                     if(currentVal == 0 && adv_start ==0) {
-                      for(let i = 2; i < dp; i++) adv_initial = parseFloat(adv_initial,10) / 10;
-                      submitVal = adv_initial
+                        if (!isFinite(adv_webwork_error)) alert("Please check percentage error value");
+                        counter2 = 1;
+                        counter3 = 0;
+                        while (Math.round(adv_webwork_error * counter2) / counter2 !== adv_webwork_error) {counter2 *= 10; counter3++;}
+                        for(let i = counter3; i < dp; i++) adv_initial = parseFloat(adv_initial,10) / 10;
+                        submitVal = adv_initial
                     }
                     else submitVal = currentVal + Math.abs(adv_increment);
                     if (submitVal > adv_end) {
                         alert("Answer not found. Reached end of test values!");
                         back_Button.click();
                     }
-                    input_list[(question_number - 1) * 2].value = (parseFloat(submitVal,10)).toFixed(dp);
+                    input_list[(question_number - 1) * 2].value = (parseFloat(submitVal,10)).toFixed(dp+counter3);
                     submit_Button.click();
                 }
                 else {
                     submitVal = adv_start;
-                    input_list[(question_number - 1) * 2].value = (parseFloat(submitVal,10)).toFixed(dp);
+                    input_list[(question_number - 1) * 2].value = (parseFloat(submitVal,10)).toFixed(dp+2=counter3);
                     submit_Button.click();
                 }
             }
@@ -140,8 +146,12 @@
                     if ((currentVal < 0.0 | currentVal >= 0.0) && currentVal <= adv_end && currentVal >= adv_start) {
                         adv_increment = currentVal * adv_webwork_error;
                         if (currentVal == 0 && adv_start ==0) {
-                          for(let i = 2; i < dp; i++) adv_initial = parseFloat(adv_initial,10) / 10;
-                          submitVal = adv_initial
+                            if (!isFinite(adv_webwork_error)) alert("Please check percentage error value");
+                            counter2 = 1;
+                            counter3 = 0;
+                            while (Math.round(adv_webwork_error * counter2) / counter2 !== adv_webwork_error) {counter2 *= 10; counter3++;}
+                            for(let i = counter3; i < dp; i++) adv_initial = parseFloat(adv_initial,10) / 10;
+                            submitVal = adv_initial
                         }
                         else submitVal = currentVal + Math.abs(adv_increment);
                         if (submitVal > adv_end) {
@@ -150,14 +160,14 @@
                             break;
                         }
                         else {
-                            input_list[(counter - 1) * 2].value = (parseFloat(submitVal,10)).toFixed(dp);
+                            input_list[(counter - 1) * 2].value = (parseFloat(submitVal,10)).toFixed(dp+2=counter3);
                             submit_Button.click();
                             break;
                         }
                     }
                     else {
                         submitVal = adv_start;
-                        input_list[(counter - 1) * 2].value = (parseFloat(submitVal,10)).toFixed(dp);
+                        input_list[(counter - 1) * 2].value = (parseFloat(submitVal,10)).toFixed(dp+2);
                         submit_Button.click();
                         break;
                     }
@@ -176,16 +186,20 @@
                     if ((currentVal < 0.0 | currentVal >= 0.0) && currentVal <= adv_end && currentVal >= adv_start) {
                         adv_increment = currentVal * adv_webwork_error;
                         if (currentVal == 0 && adv_start ==0) {
-                          for(let i = 2; i < dp; i++) adv_initial = parseFloat(adv_initial,10) / 10;
-                          submitVal = adv_initial
+                            if (!isFinite(adv_webwork_error)) alert("Please check percentage error value");
+                            counter2 = 1;
+                            counter3 = 0;
+                            while (Math.round(adv_webwork_error * counter2) / counter2 !== adv_webwork_error) {counter2 *= 10; counter3++;}
+                            for(let i = counter3; i < dp; i++) adv_initial = parseFloat(adv_initial,10) / 10;
+                            submitVal = adv_initial
                         }
                         else submitVal = currentVal + Math.abs(adv_increment);
                         if (submitVal > adv_end) unsolve_flag++;
-                        else input_list[(counter - 1) * 2].value = (parseFloat(submitVal,10)).toFixed(dp);
+                        else input_list[(counter - 1) * 2].value = (parseFloat(submitVal,10)).toFixed(dp+counter3);
                     }
                     else {
                         submitVal = adv_start;
-                        input_list[(counter - 1) * 2].value = (parseFloat(submitVal,10)).toFixed(dp);
+                        input_list[(counter - 1) * 2].value = (parseFloat(submitVal,10)).toFixed(dp+counter3);
                     }
                 }
                 else check_flag++;
@@ -199,16 +213,16 @@
             else submit_Button.click();
         }
 
-/****************************** SIMPLE INCREMENTS ****************************/
+        /****************************** SIMPLE INCREMENTS ****************************/
 
         // check what solving mode it is
         // case: single solver
         else if (solve_mode == "single") {
             currentVal = parseFloat(eval(input_list[(question_number - 1) * 2].value),10);
-        // check if answer is correct
+            // check if answer is correct
             // case: question still incorrect
             if (answers_list[question_number * 3 - 1].classList.contains("ResultsWithError") == true) {
-        // check if answer input is currently null/undefined
+                // check if answer input is currently null/undefined
                 // case: click questions
                 if (input_list[(question_number - 1)].type == "radio") {
                     if(input_list[(question_number - 1)].hasAttribute("checked")) {
@@ -245,10 +259,10 @@
             // for loop to check and fill all questions
             for (counter = question_number; counter <= answers_list.length / 3; counter++ ) {
                 currentVal = parseFloat(eval(input_list[(counter - 1) * 2].value),10)
-        // check what condition answers are in
+                // check what condition answers are in
                 // case: answer is still incorrect
                 if (answers_list[counter * 3 - 1].classList.contains("ResultsWithError") == true) {
-        // check if answer input is currently null/undefined
+                    // check if answer input is currently null/undefined
                     // case: prevous input exists (and is lower than the end value)
                     if ((currentVal < 0.0 | currentVal >= 0.0) && currentVal <= end && currentVal >= start) {
                         submitVal = currentVal + increment;
@@ -286,10 +300,10 @@
             // for loop to fill in all questions
             for (counter = 1; counter <= parseInt(answers_list.length) / 3; counter++) {
                 currentVal = parseFloat(eval(input_list[(counter - 1) * 2].value),10)
-        // check if answer is correct
+                // check if answer is correct
                 // case: incorrect answer
                 if (answers_list[counter * 3 - 1].classList.contains("ResultsWithError") == true) {
-        // check if answer input is currently null/undefined
+                    // check if answer input is currently null/undefined
                     // case: previous input exists (and is lower than the end value)
                     if ((currentVal < 0.0 | currentVal >= 0.0) && currentVal <= end && currentVal >= start) {
                         submitVal = currentVal + increment;
