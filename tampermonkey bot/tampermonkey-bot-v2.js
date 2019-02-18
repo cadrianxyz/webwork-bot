@@ -4,7 +4,7 @@
 // @version      0.1
 // @description  Simple bot for testing values by increments (uses submit submission)
 // @author       You
-// @include      https://webwork.elearning.ubc.ca/*
+// @include      https://webwork.elearning.ubc.ca/webwork2/2018W2_ELEC_202_ALL/ASN7/5/*
 // @grant        none
 // ==/UserScript==
 
@@ -103,6 +103,10 @@
         /****************************** ADVANCED INCREMENTS ****************************/
 
         if (solve_mode == "single" && increment_mode == "advanced") {
+            if (!isFinite(adv_webwork_error)) alert("Please check percentage error value");
+            counter2 = 1;
+            counter3 = 0;
+            while (Math.round(adv_webwork_error * counter2) / counter2 !== adv_webwork_error) {counter2 *= 10; counter3++;}
             currentVal = (parseFloat(eval(input_list[(question_number - 1) * 2].value),10)).toFixed(dp);
             if (answers_list[question_number * 3 - 1].classList.contains("ResultsWithError") == true) {
                 if (input_list[(question_number - 1)].type == "radio") {
@@ -116,10 +120,6 @@
                 else if ((currentVal < 0.0 | currentVal >= 0.0) && currentVal <= adv_end && currentVal >= adv_start) {
                     adv_increment = currentVal * adv_webwork_error;
                     if(currentVal == 0 && adv_start ==0) {
-                        if (!isFinite(adv_webwork_error)) alert("Please check percentage error value");
-                        counter2 = 1;
-                        counter3 = 0;
-                        while (Math.round(adv_webwork_error * counter2) / counter2 !== adv_webwork_error) {counter2 *= 10; counter3++;}
                         for(let i = counter3; i < dp; i++) adv_initial = parseFloat(adv_initial,10) / 10;
                         submitVal = adv_initial
                     }
@@ -133,23 +133,23 @@
                 }
                 else {
                     submitVal = adv_start;
-                    input_list[(question_number - 1) * 2].value = (parseFloat(submitVal,10)).toFixed(dp+2=counter3);
+                    input_list[(question_number - 1) * 2].value = (parseFloat(submitVal,10)).toFixed(dp+counter3);
                     submit_Button.click();
                 }
             }
             else alert("Question is solved with value " + currentVal);
         }
         else if (solve_mode == "sequential" && increment_mode == "advanced") {
+            if (!isFinite(adv_webwork_error)) alert("Please check percentage error value");
+            counter2 = 1;
+            counter3 = 0;
+            while (Math.round(adv_webwork_error * counter2) / counter2 !== adv_webwork_error) {counter2 *= 10; counter3++;}
             for (counter = question_number; counter <= answers_list.length / 3; counter++ ) {
                 currentVal = parseFloat(eval(input_list[(counter - 1) * 2].value),10);
                 if (answers_list[counter * 3 - 1].classList.contains("ResultsWithError") == true) {
                     if ((currentVal < 0.0 | currentVal >= 0.0) && currentVal <= adv_end && currentVal >= adv_start) {
                         adv_increment = currentVal * adv_webwork_error;
                         if (currentVal == 0 && adv_start ==0) {
-                            if (!isFinite(adv_webwork_error)) alert("Please check percentage error value");
-                            counter2 = 1;
-                            counter3 = 0;
-                            while (Math.round(adv_webwork_error * counter2) / counter2 !== adv_webwork_error) {counter2 *= 10; counter3++;}
                             for(let i = counter3; i < dp; i++) adv_initial = parseFloat(adv_initial,10) / 10;
                             submitVal = adv_initial
                         }
@@ -160,7 +160,7 @@
                             break;
                         }
                         else {
-                            input_list[(counter - 1) * 2].value = (parseFloat(submitVal,10)).toFixed(dp+2=counter3);
+                            input_list[(counter - 1) * 2].value = (parseFloat(submitVal,10)).toFixed(dp+counter3);
                             submit_Button.click();
                             break;
                         }
@@ -180,16 +180,16 @@
         else if (solve_mode == "multiple" && increment_mode == "advanced") {
             let check_flag = 0;
             let unsolve_flag = 0;
+            if (!isFinite(adv_webwork_error)) alert("Please check percentage error value");
+            counter2 = 1;
+            counter3 = 0;
+            while (Math.round(adv_webwork_error * counter2) / counter2 !== adv_webwork_error) {counter2 *= 10; counter3++;}
             for (counter = 1; counter <= parseInt(answers_list.length) / 3; counter++) {
                 currentVal = parseFloat(eval(input_list[(counter - 1) * 2].value),10);
                 if (answers_list[counter * 3 - 1].classList.contains("ResultsWithError") == true) {
                     if ((currentVal < 0.0 | currentVal >= 0.0) && currentVal <= adv_end && currentVal >= adv_start) {
                         adv_increment = currentVal * adv_webwork_error;
                         if (currentVal == 0 && adv_start ==0) {
-                            if (!isFinite(adv_webwork_error)) alert("Please check percentage error value");
-                            counter2 = 1;
-                            counter3 = 0;
-                            while (Math.round(adv_webwork_error * counter2) / counter2 !== adv_webwork_error) {counter2 *= 10; counter3++;}
                             for(let i = counter3; i < dp; i++) adv_initial = parseFloat(adv_initial,10) / 10;
                             submitVal = adv_initial
                         }
