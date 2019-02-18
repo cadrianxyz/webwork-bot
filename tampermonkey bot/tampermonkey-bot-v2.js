@@ -7,6 +7,8 @@
 // @include      https://webwork.elearning.ubc.ca/webwork2/2018W2_ELEC_202_ALL/ASN7/5/*
 // @grant        none
 // ==/UserScript==
+// last edit: 17 February 2019, test: WW ASN7 ELEC202
+
 
 (function() {
     'use strict';
