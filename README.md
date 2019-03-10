@@ -1,6 +1,6 @@
 # webwork-bot
 This bot uses javascript code to apply brute force in answering webwork questions.
-Warning: The use of this bot may cause over +100 attempts easily, which may be obvious to examiners.
+Disclaimer: Use of this bot may cause over +100 attempts easily.
 
 Due to the need for page reloading every submit, the code works by being injected into the browser's console every reload.
 
