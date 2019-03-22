@@ -108,7 +108,7 @@
             counter2 = 1;
             counter3 = 0;
             while (Math.round(adv_webwork_error * counter2) / counter2 !== adv_webwork_error) {counter2 *= 10; counter3++;}
-            currentVal = (parseFloat(eval(input_list[(question_number - 1) * 2].value),10)).toFixed(dp);
+            currentVal = parseFloat(eval(input_list[(question_number - 1) * 2].value),10);
             if (answers_list[question_number * 3 - 1].classList.contains("ResultsWithError") == true) {
                 if (input_list[(question_number - 1)].type == "radio") {
                     if (input_list[(question_number - 1)].hasAttribute("checked")) {

@@ -16,15 +16,15 @@
     var webwork_mode = "single"; // **is there more than one webwork problem to solve?
     // webwork_modes: "single" - solve only one webwork question
     //                "multiple" - continue until all webwork questions solved
-    var solve_mode = "multiple"; // **is there more than one question to solve?
+    var solve_mode = "single"; // **is there more than one question to solve?
     // solve_modes: "single" - individual question solver
     //              "sequential" - sequential question solver
     //              "multiple" - solve multiple questions at the same time!
 
     var start = 0; // **starting value
-    var end = 100; // **ending value
+    var end = 50; // **ending value
     var increment = 1; // **value to increment by
-    var question_number = 1; // **which individual question to solve?
+    var question_number = 2; // **which individual question to solve?
     var ignore_100 = 1; // **decide whether to ignore 100%
     var ignore_attempts = 1; // **decide whether to ignore unlimited attempts
     var end_ignore = 1; //**decide whether to ignore the end value
@@ -33,8 +33,8 @@
     var increment_mode = "advanced"
     // increment_modes: "simple" - normal incrementation
     //                  "advanced" - use incrementation based on webwork percentage
-    var adv_start = 1;
-    var adv_end = 10;
+    var adv_start = 0.01;
+    var adv_end = 1;
     var adv_increment = 0;
     var adv_webwork_error = 0.02; // 2% error on webwork
     var dp = 4; // maximum decimal points to round to
@@ -107,7 +107,7 @@
             counter2 = 1;
             counter3 = 0;
             while (Math.round(adv_webwork_error * counter2) / counter2 !== adv_webwork_error) {counter2 *= 10; counter3++;}
-            currentVal = (parseFloat(eval(input_list[(question_number - 1) * 2].value),10)).toFixed(dp);
+            currentVal = parseFloat(eval(input_list[(question_number - 1) * 2].value),10);
             if (answers_list[question_number * 3 - 1].classList.contains("ResultsWithError") == true) {
                 if (input_list[(question_number - 1)].type == "radio") {
                     if (input_list[(question_number - 1)].hasAttribute("checked")) {
