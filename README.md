@@ -12,6 +12,7 @@ Due to the need for page reloading every submit, the code works by being injecte
 4. Log on to webwork and open a question
 5. Enable the script through the TamperMonkey button on the browser toolbar
 ![](inst-2.png)
+
 *-->Ensure that the TamperMonkey is enabled and not hidden in the browser toolbar*
 
 6. Enjoy! :tada:
@@ -20,6 +21,7 @@ Due to the need for page reloading every submit, the code works by being injecte
 
 # Usage
 In order to use the bot, simple understanding of a few lines of code is needed. Please read the comments on the different sections and **only alter code that is marked as customizable**
+
 ![](Usage.png)
 
 Version 1 of the code uses a browser extension called "tampermonkey"
