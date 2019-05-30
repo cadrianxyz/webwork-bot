@@ -1,19 +1,19 @@
 # webwork-bot
-This bot uses javascript code to apply brute force in answering online webwork questions.
+This bot uses javascript to apply brute force in answering online webwork questions.
 Disclaimer: Use of this bot may cause over +100 attempts easily.
 
-Due to the need for page reloading every submit, the code works by being injected into the browser's console every reload.
+Due to the need for the page to reload after every submit, the code works by being injected into the browser's console by the use of an external extension.
 
 # Instructions
 1. Download [TamperMonkey](https://www.tampermonkey.net/) as a browser extension (compatible with Chrome, Firefox, Opera, etc)
-2. Open the dashboard of the extension and create a new scripts
+2. Navigate to the dashboard of the extension and "create a new script"
 ![](inst-1.png)
-3. Copy and paste the entire code from one of the scripts on this repository, save before exiting
+3. Copy and paste the entire code from one of the scripts in this repository, and save before exiting
 4. Log on to webwork and open a question
-5. Enable the script through the TamperMonkey button on the browser toolbar
+5. Enable the script through TamperMonkey, which should be accessible from the browser toolbar
 ![](inst-2.png)
 
-*-->Ensure that the TamperMonkey is enabled and not hidden in the browser toolbar*
+*-->Ensure that TamperMonkey is enabled and not hidden in the browser toolbar*
 
 6. Enjoy! :tada:
 
